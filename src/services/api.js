@@ -16,14 +16,14 @@ export async function createTasksApi(task){
             },
             body: JSON.stringify(task)
         }
-)
+    )
 }
 
 export async function deleteTasksApi(id){
 
     console.log("Apagou tarefa", id)
     return await fetch(
-        `${baseUrl}/tarefas/${encodeURIComponent(id)}`,
+        `${baseUrl}/tarefas/${id}`,
         {
             method: "DELETE",
             headers: {
@@ -32,5 +32,20 @@ export async function deleteTasksApi(id){
            
         }
     )
+}
 
+export async function editTasksApi(id, updateData) {
+    
+    console.log("Editou a tarefa", updateData)
+    return await fetch(
+        `${baseUrl}/tarefas/${id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify(updateData)
+        }
+    )
 }
