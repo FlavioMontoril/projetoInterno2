@@ -1,9 +1,12 @@
 import React from "react";
-import { TaskWrapper } from "./components/tasks/TaskWrapper";
+import { TaskWrapper } from "./components/task/TaskWrapper";
+import { TaskProvider } from "./context/TaskProvider";
 
 export function App() {
 
   return (
-    <TaskWrapper />
+    <TaskProvider>
+      <TaskWrapper />
+    </TaskProvider>
   );
 }

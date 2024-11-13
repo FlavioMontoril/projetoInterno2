@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { createTasksApi } from "../../services/api";
+import { TaskContext, useTask } from "../../context/TaskProvider";
 
-export const TaskForm = ({ task, setTask, taskList, setTaskList }) => {
+export const TaskForm = () => {
+
+    // const { createTask } = useContext(TaskContext)
+    const { createTask } = useTask()
+
+    // ESTADO RESPONSÁVEL PELA A ESTRUTURA DE CRIAÇÃO DE UMA TAREFA.
+    const [task, setTask] = useState({
+        titulo: '',
+        descricao: '',
+        status: ''
+    })
 
     function handleInputChange(e) {
 
@@ -13,19 +24,8 @@ export const TaskForm = ({ task, setTask, taskList, setTaskList }) => {
 
     async function handleCreateTasks(e) {
         e.preventDefault()
+        createTask(task)
 
-        const response = await createTasksApi(task)
-
-        if (response.status === 201) {
-            const currentTask = await response.json()
-            const newTasks = [currentTask, ...taskList]
-
-            setTaskList(newTasks)
-        }
-        else{
-            alert("Insira as informações necessárias")
-        }
-        
     }
 
     return (
