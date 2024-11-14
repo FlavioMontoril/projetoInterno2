@@ -32,30 +32,25 @@ form {
     border-radius: 10px;
 }
 
-.trash {
-    position: relative;
-    right: auto;
-    left: 90%;
-    bottom: 40px;
-}
-
-.deleteButton  {
+.btn  {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    display: inline;
+    justify-content: center;
+    margin-left: 130px;
+    margin-right: -100px;
+}
+hr{
+    color: #fff;
 }
 
-.editButton {
+/* .editButton {
     border: none;
     background-color: transparent;
     cursor: pointer;
-}
-.confirmEditButton{
-    position: relative;
-    right: auto;
-    left: 90%;
-    bottom: 55px;
-}
+} */
+
 input {
     border: 1px solid #48456C;
     border-radius: 30px;

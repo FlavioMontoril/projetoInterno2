@@ -1,9 +1,5 @@
-import React, { useContext, useState } from "react";
-// import { deleteTasksApi } from "../../services/api";
-// import { LuTrash } from "react-icons/lu";
-// import { GiConfirmed } from "react-icons/gi";
-// import { CiEdit } from "react-icons/ci";
-import { TaskContext, useTask } from "../../context/TaskProvider";
+import React, { useState } from "react";
+import { useTask } from "../../context/TaskProvider";
 
 export function TaskItem({ data }) {
 
@@ -14,18 +10,10 @@ export function TaskItem({ data }) {
 
     const [isDisabled, setIsDisabled] = useState(true)
 
-    // ESSA FUNÇÃO SALVA OS VALORES DIGITADOS NO IMPUT E ADICIONA AO EVENTO, LOGO APÓS É CRIADO UM INPUT, ONDE VAI ESPALHADO A LISTA DE TAREFAS
-    // E OS VALORES DIGITADOS NO IMPUT. APÓS ISTO, É ADICIONADO O NEW INPUT NA LISTA DE TAREFAS COM OS NOVOS VALORES
     function handleNewInputChange(e) {
         const { name, value } = e.target
         console.log(value)
-        // const newList = listTasks
-        // newList[index] = {
-        //     ...newList[index],
-        //     [name]: value
-        // }
 
-        // setListTasks(newList)
         setTask((state) => ({
             ...state,
             [name]: value
@@ -33,11 +21,18 @@ export function TaskItem({ data }) {
     }
 
     function handleDeleteTasks() {
+        const confirmDelete = window.confirm("Deseja deletar a tarefa?")
 
-            console.log("Chegou no delete", task.id)
+        if(confirmDelete){
             if(task.id){
                 deleteTask(task.id)
             }
+            
+        }
+        else{
+            alert("Exclusão cancelada!")
+            }
+            
         }
 
     function handleEnableEdit(e) {
@@ -51,7 +46,6 @@ export function TaskItem({ data }) {
         setIsDisabled(!isDisabled)
 
     }
-
 
     return (
         <div className="card" key={data.id}>
@@ -76,45 +70,32 @@ export function TaskItem({ data }) {
                         <select name="status" disabled={isDisabled} defaultValue={task.status} required onChange={(e) => handleNewInputChange(e)}>
                             <option>Selecione um status</option>
                             <option value="pendente">Pendente</option>
-                            <option value="emAndamento">Em andamento</option>
+                            <option value="Em andamento">Em andamento</option>
                             <option value="concluído">Concluido</option>
                         </select>
-                    </label><br></br>
+                    </label>
+                    <br/>
                 </div>
             </div>
 
-            <button onClick={handleEnableEdit}>
-                {isDisabled ? "editar" : "salvar"}
+            <div className="button-container">
+            <button className="btn" onClick={handleEnableEdit}>
+                {isDisabled ? "Editar" : "salvar"}
             </button>
 
-            <button className="deleteButton" onClick={handleDeleteTasks}> 
+            <button className="btn" onClick={handleDeleteTasks}> 
                 Apagar
             </button>
-                   {/*} <LuTrash size={20} color="red" />
-
-                </button>
-
-            /* <button className="confirmEditButton" >
-                <GiConfirmed size={20} color="blue" />
-            </button> */}
-
-
-            {/* <p>Titulo: <span>{data.titulo}</span></p>
+            </div>
+            <hr/>
+            <br/>
+            
+            <p>Titulo: <span>{data.titulo}</span></p>
             <p>Descrição: <span>{data.descricao}</span></p>
             <p>Status: <span>{data.status}</span></p>
             <p>Criado: <span>{data.criado_em}</span></p>
             <p>ID: <span>{data.id}</span></p>
 
-            <div className="trash">
-                <button className="deleteButton" onClick={() => handleDeleteTasks(data.id)}  >
-                    <LuTrash size={20} color="red" />
-
-                </button>
-
-                <button className="editButton" onClick={handleEnableEdit()} >
-                    <CiEdit size={20} color="blue" />
-                </button>
-            </div> */}
         </div>
     )
 }

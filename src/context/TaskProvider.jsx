@@ -3,9 +3,7 @@ import { createTasksApi, deleteTasksApi, editTasksApi, getAllTasksApi } from "..
 
 
 
-
-export const TaskContext = createContext(undefined)
-
+export const TaskContext = createContext(undefined);
 
 export function useTask() {
     const ctx = useContext(TaskContext)
@@ -19,12 +17,8 @@ export function useTask() {
     return ctx
 }
 
-
-
 export function TaskProvider({ children }) {
     const [tasks, setTasks] = useState([])
-
-    // ESSA FUNÇÃO É RESPONSÁVEL POR BUSCAR AS MINHAS TAREFAS CRIADAS.
     async function getTasks() {
         const response = await getAllTasksApi()
         if (response.status === 200) {
@@ -33,7 +27,6 @@ export function TaskProvider({ children }) {
         }
     }
 
-
     async function createTask(task) {
         try {
 
@@ -41,7 +34,6 @@ export function TaskProvider({ children }) {
 
             if (response.status === 201) {
                 const currentTask = await response.json()
-                // const newTasks = [currentTask, ...taskList]
 
                 setTasks((state) => [currentTask, ...state])
             }
@@ -79,16 +71,15 @@ export function TaskProvider({ children }) {
     }
 
     async function deleteTask(id) {
-        const response = await deleteTasksApi(id)
-        if (response.status === 204) {
 
+        const response = await deleteTasksApi(id)
+
+        if (response.status === 204) {
             const index = tasks.findIndex((task) => task.id === id)
-            const newTasks = tasks.splice(index, 1)
-            setTasks((state) => [...newTasks])
-            console.log("Esta exluindo")
+            tasks.splice(index, 1)
+            setTasks((state) => [...state])
         }
     }
-    console.log(tasks)
     useEffect(() => {
         getTasks();
     }, [])

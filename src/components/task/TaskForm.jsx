@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
-import { createTasksApi } from "../../services/api";
-import { TaskContext, useTask } from "../../context/TaskProvider";
+import React, { useState } from "react";
+import { useTask } from "../../context/TaskProvider";
 
 export const TaskForm = () => {
 

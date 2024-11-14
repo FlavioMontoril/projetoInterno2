@@ -21,7 +21,6 @@ export async function createTasksApi(task){
 
 export async function deleteTasksApi(id){
 
-    console.log("Apagou tarefa", id)
     return await fetch(
         `${baseUrl}/tarefas/${id}`,
         {
